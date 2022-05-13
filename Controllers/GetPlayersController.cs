@@ -8,8 +8,6 @@ namespace Web_Api_Learning.Controllers
     [ApiController]
     public class GetPlayersController : ControllerBase
     {
-
-
         private readonly DataContext _dataContext;
 
         public GetPlayersController(DataContext context)
@@ -17,8 +15,40 @@ namespace Web_Api_Learning.Controllers
             _dataContext = context;
         }
 
+        [HttpGet("/api/GetTeamPlayers")]
+        public async Task<IActionResult> GetAsyncTeamPlayers(int teamId)
+        {
+
+            var TeamPlayers = await _dataContext.PLAYERS.Where(p => p.TeamId == teamId).ToListAsync();
+            return Ok(TeamPlayers);
+
+
+        }
+
+
+
+
+
+        [HttpGet("/api/GetTeams")]
+        public async Task<IActionResult> GetAsyncTeams(int teamId)
+        {
+
+
+            if (teamId == 0)
+            {
+                var Teams = await _dataContext.TEAMS.ToListAsync();
+                return Ok(Teams);
+            }
+            else
+            {
+                var Teams = await _dataContext.TEAMS.Where(t => t.id == teamId).ToListAsync();
+                return Ok(Teams);
+            }
+        }
+
+
         [HttpGet]
-        public async Task<IActionResult> GetAsync(int id)
+        public async Task<IActionResult> GetAsyncPlayers(int id)
         {
 
 
@@ -34,14 +64,6 @@ namespace Web_Api_Learning.Controllers
                 return Ok(player);
             }
 
-
-
-
-
         }
-
-
-
-
     }
 }

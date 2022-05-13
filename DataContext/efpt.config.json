@@ -20,6 +20,10 @@
       {
          "Name": "[dbo].[PLAYERS]",
          "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TEAMS]",
+         "ObjectType": 0
       }
    ],
    "UiHint": "DESKTOP-R9PB53O.IPL",

@@ -21,6 +21,13 @@ namespace Web_Api_Learning
         public virtual DbSet<MumbaiIndians> MumbaiIndians { get; set; }
         public virtual DbSet<PLAYERS> PLAYERS { get; set; }
 
+        internal Task FindAsync(int playerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual DbSet<TEAMS> TEAMS { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -55,21 +62,15 @@ namespace Web_Api_Learning
 
             modelBuilder.Entity<PLAYERS>(entity =>
             {
-                entity.Property(e => e.FirstName)
+                entity.Property(e => e.PlayerName)
                     .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
+            });
 
-                entity.Property(e => e.IplTeam)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.LastName)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Nationality)
-                    .IsRequired()
+            modelBuilder.Entity<TEAMS>(entity =>
+            {
+                entity.Property(e => e.TeamName)
                     .HasMaxLength(255)
                     .IsUnicode(false);
             });

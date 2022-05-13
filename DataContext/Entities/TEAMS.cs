@@ -5,10 +5,9 @@ using System.Collections.Generic;
 
 namespace Web_Api_Learning
 {
-    public partial class PLAYERS
+    public partial class TEAMS
     {
         public int id { get; set; }
-        public int TeamId { get; set; }
-        public string PlayerName { get; set; }
+        public string TeamName { get; set; }
     }
 }
