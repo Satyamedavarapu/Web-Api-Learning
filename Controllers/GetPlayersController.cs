@@ -83,6 +83,14 @@ namespace Web_Api_Learning.Controllers
         }
 
 
+        [HttpGet("api/PlayerNames")]
+        public  IQueryable<PLAYERS> playerName(int nameLength)
+        {
+            var Players = _dataContext.PLAYERS.AsQueryable().
+                          Where(p => p.PlayerName.Length > nameLength);
+            return Players;
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAsyncPlayers(int id)
         {
