@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
+using System.Linq;
 
 namespace Web_Api_Learning.Controllers
 {
@@ -16,6 +18,17 @@ namespace Web_Api_Learning.Controllers
         }
 
         [HttpGet("/api/GetTeamPlayers")]
+
+        public  IEnumerable<PLAYERS> GetPlayers(int teamID)
+        {
+            var queryResult = from p in _dataContext.PLAYERS
+                              where p.TeamId == teamID
+                              select p;
+
+          return queryResult;
+        }
+
+/*
         public async Task<IActionResult> GetAsyncTeamPlayers(int teamId)
         {
 
@@ -24,25 +37,48 @@ namespace Web_Api_Learning.Controllers
 
 
         }
+        */
 
 
+        /*
+        public IEnumerable<PLAYERS> getPlayers()
+        {
+            var query = from p in _dataContext.PLAYERS
+                        where p.TeamId == 0
+                        select p;
 
+
+            foreach(var player in query)
+            {
+               Console.WriteLine(player.PlayerName);
+            }
+        }
+        */
+
+
+    
 
 
         [HttpGet("/api/GetTeams")]
-        public async Task<IActionResult> GetAsyncTeams(int teamId)
+        public  IEnumerable<TEAMS> GetAsyncTeams(int teamId)
         {
 
 
             if (teamId == 0)
             {
-                var Teams = await _dataContext.TEAMS.ToListAsync();
-                return Ok(Teams);
+
+                var Teams = from t in _dataContext.TEAMS
+                            where t.id != 0
+                            select t;
+
+                return Teams;
             }
             else
             {
-                var Teams = await _dataContext.TEAMS.Where(t => t.id == teamId).ToListAsync();
-                return Ok(Teams);
+                var Teams = from t in _dataContext.TEAMS
+                            where t.id == teamId
+                            select t;
+                return Teams;
             }
         }
 
