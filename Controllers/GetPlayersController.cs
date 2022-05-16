@@ -83,7 +83,7 @@ namespace Web_Api_Learning.Controllers
         }
 
 
-        [HttpGet("api/PlayerNames")]
+        [HttpGet("/api/PlayerNames")]
         public  IQueryable<PLAYERS> playerName(int nameLength)
         {
             var Players = _dataContext.PLAYERS.AsQueryable().
